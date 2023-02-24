@@ -8,6 +8,7 @@ import { setupSender } from "@near-wallet-selector/sender";
 import { setupHereWallet } from "@near-wallet-selector/here-wallet";
 import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
 import { setupNeth } from "@near-wallet-selector/neth";
+import { setupFastAuth } from "./setupFastAuth";
 import { singletonHook } from "react-singleton-hook";
 import { MaxGasPerTransaction, TGas } from "./utils";
 
@@ -230,6 +231,7 @@ async function _initNear({ networkId, config, keyStore, selector } = {}) {
     setupWalletSelector({
       network: config.networkId,
       modules: [
+        setupFastAuth(),
         setupNearWallet(),
         setupMyNearWallet(),
         setupSender(),
