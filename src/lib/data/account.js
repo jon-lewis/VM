@@ -85,14 +85,21 @@ const loadAccount = async (near, setAccount) => {
     },
   };
   if (signedAccountId) {
-    const [storageBalance, state] = await Promise.all([
-      near.contract.storage_balance_of({
-        account_id: signedAccountId,
-      }),
-      near.accountState(signedAccountId),
-    ]);
-    account.storageBalance = storageBalance;
-    account.state = state;
+    try {
+      const [storageBalance, state] = await Promise.all([
+        near.contract.storage_balance_of({
+          account_id: signedAccountId,
+        }),
+        near.accountState(signedAccountId),
+      ]);
+      account.storageBalance = storageBalance;
+      account.state = state;
+    } catch (e) {
+      console.log(
+        "Failed to load account balance and state but it's all good",
+        e
+      );
+    }
   }
 
   setAccount(account);
