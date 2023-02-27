@@ -4156,7 +4156,8 @@ const MyNearWallet = ({ metadata, options, store, params, logger }) =>
   });
 
 function setupFastAuth({
-  walletUrl = "https://alphatest.near.org",
+  walletUrl = process.env.NEXT_PUBLIC_FAST_AUTH_WALLET_URL ||
+    "https://alphatest.near.org",
   iconUrl = icon,
   deprecated = false,
   successUrl = "",
