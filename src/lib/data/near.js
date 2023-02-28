@@ -210,7 +210,13 @@ async function web4ViewCall(contractId, methodName, args, fallback) {
   }
 }
 
-async function _initNear({ networkId, config, keyStore, selector } = {}) {
+async function _initNear({
+  networkId,
+  config,
+  keyStore,
+  selector,
+  fastAuthWalletUrl,
+} = {}) {
   if (!config) {
     config = {};
     if (!networkId) {
@@ -231,7 +237,9 @@ async function _initNear({ networkId, config, keyStore, selector } = {}) {
     setupWalletSelector({
       network: config.networkId,
       modules: [
-        setupFastAuth(),
+        setupFastAuth({
+          walletUrl: fastAuthWalletUrl,
+        }),
         setupNearWallet(),
         setupMyNearWallet(),
         setupSender(),
